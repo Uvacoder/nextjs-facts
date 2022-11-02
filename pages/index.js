@@ -1,7 +1,6 @@
 import { useAutoAnimate } from '@formkit/auto-animate/react';
-import { PullToRefresh } from 'react-js-pull-to-refresh';
 import Head from 'next/head';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import FactItem from '../components/FactItem/FactItem';
 
 export default function Home({ facts }) {
@@ -16,14 +15,7 @@ export default function Home({ facts }) {
   };
 
   return (
-    <PullToRefresh
-      pullDownContent={'Loading...'}
-      pullDownThreshold={200}
-      onRefresh={handleRefresh}
-      triggerHeight={50}
-      backgroundColor='white'
-      startInvisible={true}
-    >
+    <Fragment>
       <Head>
         <title>act(ory)s</title>
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
@@ -51,7 +43,7 @@ export default function Home({ facts }) {
           </div>
         </div>
       </main>
-    </PullToRefresh>
+    </Fragment>
   );
 }
 
