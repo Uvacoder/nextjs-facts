@@ -1,6 +1,7 @@
 import { useAutoAnimate } from '@formkit/auto-animate/react';
+import { PullToRefresh } from 'react-js-pull-to-refresh';
+import Head from 'next/head';
 import { useState } from 'react';
-import PullToRefresh from 'react-simple-pull-to-refresh';
 import FactItem from '../components/FactItem/FactItem';
 
 export default function Home({ facts }) {
@@ -9,17 +10,36 @@ export default function Home({ facts }) {
 
   const handleRefresh = async () => {
     const facts = await fetch('/api/facts');
-    setFacts(facts);
+    const factsJson = await facts.json();
+    console.log(factsJson);
+    setFacts(factsJson.facts);
   };
 
   return (
-    <PullToRefresh onRefresh={handleRefresh}>
+    <PullToRefresh
+      pullDownContent={'Loading...'}
+      pullDownThreshold={200}
+      onRefresh={handleRefresh}
+      triggerHeight={50}
+      backgroundColor='white'
+      startInvisible={true}
+    >
+      <Head>
+        <title>act(ory)s</title>
+        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+      </Head>
       <main>
         <div className='mx-auto d-flex max-w-full md:max-w-screen-sm overflow-x-hidden p-3 bg-yellow-50 min-h-screen'>
-          <div className=' mb-3'>
-            <h1>Fact(ory)s</h1>
-            <hr />
+          <div className='d-flex mb-3 justify-between'>
+            <h1 className='mb-2'>Fact(ory)s</h1>
+            <button
+              className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+              onClick={handleRefresh}
+            >
+              Get more facts
+            </button>
           </div>
+
           <div>
             {
               <ul ref={parent}>
