@@ -1,6 +1,6 @@
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import Head from 'next/head';
-import { Fragment, useState } from 'react';
+import { Fragment, Suspense, useState } from 'react';
 import FactItem from '../components/FactItem/FactItem';
 
 export default function Home({ facts }) {
@@ -15,7 +15,7 @@ export default function Home({ facts }) {
   };
 
   return (
-    <Fragment>
+    <Suspense fallback={`Loading...`}>
       <Head>
         <title>act(ory)s</title>
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
@@ -43,7 +43,7 @@ export default function Home({ facts }) {
           </div>
         </div>
       </main>
-    </Fragment>
+    </Suspense>
   );
 }
 
