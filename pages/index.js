@@ -1,6 +1,6 @@
 import { useAutoAnimate } from '@formkit/auto-animate/react';
-import Head from 'next/head';
-import { Fragment, Suspense, useState } from 'react';
+import PullToRefresh from 'react-simple-pull-to-refresh';
+import { useState } from 'react';
 import FactItem from '../components/FactItem/FactItem';
 
 export default function Home({ facts }) {
@@ -15,11 +15,7 @@ export default function Home({ facts }) {
   };
 
   return (
-    <Suspense fallback={`Loading...`}>
-      <Head>
-        <title>act(ory)s</title>
-        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
-      </Head>
+    <PullToRefresh onRefresh={handleRefresh}>
       <main>
         <div className='mx-auto d-flex max-w-full md:max-w-screen-sm overflow-x-hidden p-3 bg-yellow-50 min-h-screen'>
           <div className='d-flex mb-3 justify-between'>
@@ -43,7 +39,7 @@ export default function Home({ facts }) {
           </div>
         </div>
       </main>
-    </Suspense>
+      </PullToRefresh>
   );
 }
 
